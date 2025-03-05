@@ -35,10 +35,17 @@ Verfügung, die die Programmierung stark vereinfacht.
  4  SDA \
  5  SCL \
 12  Drehgeber Spur 0 \
-13  SerialSwap RX
+13  SerialSwap RX \
 14  Drehgeber Spur 1 \
 15  Lautsprecher / SerialSwap TX \
 16  Reset
+
+## Belegung der externen Anschlüsse
+
+Folgende Anschlüsse wurden zur einfachen Verwendung vom AALeC nach außen gelegt. Die Grafik zeigt die Belegung von außen:
+
+![AALeC-V3-Pins](https://github.com/user-attachments/assets/a1a53af1-d9bb-49b9-8da3-39be500ddd7a)
+
 
 ## Installation
 
