@@ -6,7 +6,7 @@ uint8_t colorIndex = 0;
 const RgbColor colors[] = {c_red, c_green, c_blue, c_yellow, c_white, c_cyan, c_purple};
 
 void setup() {
-  aalec.init();
+  aalec.init(numLeds);
 }
 
 void loop() {
