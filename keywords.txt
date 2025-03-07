@@ -17,8 +17,10 @@ NunchuckValues      KEYWORD1
 init				        KEYWORD2
 set_rgb_strip		        KEYWORD2
 get_button			        KEYWORD2
+button_changed              KEYWORD2
 get_rotate			        KEYWORD2
 reset_rotate		        KEYWORD2
+rotate_changed              KEYWORD2
 get_environment_sensor      KEYWORD2
 get_temp			        KEYWORD2
 get_humidity		        KEYWORD2
@@ -81,3 +83,6 @@ ButtonZ             LITERAL1
 ButtonC             LITERAL1
 Roll                LITERAL1
 Pitch               LITERAL1
+AccelX              LITERAL1
+AccelY              LITERAL1
+AccelZ              LITERAL1

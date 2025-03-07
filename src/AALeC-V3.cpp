@@ -35,10 +35,11 @@ c_AALeC_V3::c_AALeC_V3() {
 }
 
 
-void c_AALeC_V3::init() {
+// numLeds is optional. Default = 5
+void c_AALeC_V3::init(int numLeds) {
 	
 	pinMode(PIN_BEEPER, OUTPUT);
-	pinMode(PIN_LED_RESET, OUTPUT);
+	pinMode(PIN_RESET, OUTPUT);
 	pinMode(PIN_BUTTON, INPUT_PULLUP);
 	pinMode(PIN_ENCODER_TRACK_1, INPUT_PULLUP);
 	pinMode(PIN_ENCODER_TRACK_2, INPUT_PULLUP);
@@ -54,10 +55,11 @@ void c_AALeC_V3::init() {
 	Serial.flush();
 	
 	Wire.begin();
-	strip = new Adafruit_NeoPixel(100, PIN_RGB_STRIP, NEO_GRB + NEO_KHZ800);
+	aalec.numLeds = numLeds;
+	strip = new Adafruit_NeoPixel(aalec.numLeds, PIN_RGB_STRIP, NEO_GRB + NEO_KHZ800);
 	strip->begin();
 	strip->clear();
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < aalec.numLeds; i++)
 		set_rgb_strip(i, 0, 0, 0);
 	strip->show();
 	
@@ -117,7 +119,7 @@ void c_AALeC_V3::set_rgb_strip(int led, const RgbColor & c) {
 
 
 void c_AALeC_V3::set_rgb_strip(const RgbColor * c) {
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < aalec.numLeds; i++)
 		strip->setPixelColor(i, strip->Color(c[i].r, c[i].g, c[i].b));
 	strip->show();
 }
@@ -125,6 +127,14 @@ void c_AALeC_V3::set_rgb_strip(const RgbColor * c) {
 
 int c_AALeC_V3::get_button() {
 	return  ~GPIO_REG_READ(GPIO_IN_ADDRESS)  & 1;
+}
+
+int c_AALeC_V3::button_changed() {
+	int rc = 0;
+	button_int = get_button();
+	if (button_int != button_int_alt)
+		rc = 1, button_int_alt = button_int;
+	return rc;
 }
 
 
@@ -141,8 +151,9 @@ int c_AALeC_V3::rotate_changed() {
 }
 
 
-void c_AALeC_V3::reset_rotate() {
-	drehgeber_int = 0;
+void c_AALeC_V3::reset_rotate(int n) {
+	drehgeber_int = n;
+	drehgeber_int_alt = n;
 }
 
 
@@ -216,6 +227,9 @@ void c_AALeC_V3::read_Nunchuck_Data() {
 	nunchValues[3] = nunchuck1.values[11];
 	nunchValues[4] = nunchuck1.values[2];
 	nunchValues[5] = nunchuck1.values[3];
+	nunchValues[6] = nunchuck1.values[4];
+	nunchValues[7] = nunchuck1.values[5];
+	nunchValues[8] = nunchuck1.values[6];
 }
 
 uint8_t c_AALeC_V3::get_Nunchuck_Data(NunchuckValues value) {

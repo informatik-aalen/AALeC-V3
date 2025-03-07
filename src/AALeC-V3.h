@@ -17,7 +17,7 @@
 #define PIN_ENCODER_TRACK_1 12
 #define PIN_ENCODER_TRACK_2 14
 #define PIN_BEEPER          15
-#define PIN_LED_RESET       16
+#define PIN_RESET           16
 
 // I2C addresses for the sensors
 #define BME280_ADDR 0x76
@@ -46,7 +46,7 @@ enum {t_off = 0, t_c_1 = 262, t_d_1 = 294, t_e_1 = 330, t_f_1 = 349,
 class c_AALeC_V3 {
 	public:
 	c_AALeC_V3();
-	void init();
+	void init(int numLeds = 5);
 	const char * id();
 	enum NunchuckValuesEnum {
 		JoystickX,
@@ -54,7 +54,10 @@ class c_AALeC_V3 {
 		ButtonZ,
 		ButtonC,
 		Roll,
-		Pitch
+		Pitch,
+		AccelX,
+		AccelY,
+		AccelZ
 	};
 
 	using NunchuckValues = NunchuckValuesEnum;
@@ -65,13 +68,14 @@ class c_AALeC_V3 {
     void set_rgb_strip(int, const RgbColor &);
 	void set_rgb_strip(const RgbColor *);
 	
-	/* Method for the press button on the encoder */
+	/* Methods for the press button on the encoder */
 	int get_button();
+	int button_changed();
 	
 	/* Methods for the value of the encoder */
 	int get_rotate();
 	int rotate_changed();
-	void reset_rotate();
+	void reset_rotate(int n = 0);
 	
 	/* Methods for the environment sensor */
 	String get_environment_sensor();
@@ -106,9 +110,11 @@ class c_AALeC_V3 {
 	private:
 	void bme680_mess();
 	int drehgeber_int = 0, drehgeber_int_alt = 0;
+	int button_int = 0, button_int_alt = 0;
+	int numLeds = 0;
 
 	Accessory nunchuck1;
-	uint8_t nunchValues[6];
+	uint8_t nunchValues[9];
 
 	// Create sensor objects
 	Adafruit_BME280 bme280;
