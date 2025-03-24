@@ -6,6 +6,7 @@
 #include <WiiChuck.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
+#include <Adafruit_BMP280.h>
 #include <Adafruit_BME680.h>
 
 #define PIN_BUTTON           0
@@ -21,6 +22,7 @@
 
 // I2C addresses for the sensors
 #define BME280_ADDR 0x76
+#define BMP280_ADDR 0x76
 #define BME680_ADDR 0x77
 
 /* Predefined colors for the three rgb LED's */
@@ -118,9 +120,11 @@ class c_AALeC_V3 {
 
 	// Create sensor objects
 	Adafruit_BME280 bme280;
+	Adafruit_BMP280 bmp280;
 	Adafruit_BME680 bme680;
 	// Flags to indicate which sensor is active
 	bool isBME280 = false;
+	bool isBMP280 = false;
 	bool isBME680 = false;
 	uint32_t last_bme680 = -1010;
 
