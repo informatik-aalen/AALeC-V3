@@ -62,10 +62,11 @@ Diese Bibliothek hängt von den folgenden Bibliotheken ab:
 * WiiChuck
 * Adafruit Sensor
 * Adafruit BME280
+* Adafruit BMP280
 * Adafruit BME680
 
 Installieren Sie diese Bibliotheken bitte über den Bibliotheksverwalter in der Arduino IDE.
-Zur Ausführung werden beide BME-Bibliotheken benötigt, da die AALeC-Bibliothek automatisch erkennt, welcher Sensor an den AALeC angeschlossen ist.
+Zur Ausführung werden alle drei BME/BMP-Bibliotheken benötigt, da die AALeC-Bibliothek automatisch erkennt, welcher Sensor an den AALeC angeschlossen ist.
 
 ## Autoren
 
