@@ -78,6 +78,10 @@ void c_AALeC_V3::init(int numLeds) {
     if (bme280.begin(BME280_ADDR)) {
         isBME280 = true;
     } 
+	// Try to initialize BME280
+    else if (bmp280.begin(BMP280_ADDR)) {
+        isBMP280 = true;
+    } 
     // Try to initialize BME680 if BME280 not found
     else if (bme680.begin(BME680_ADDR)) {
         isBME680 = true;
@@ -160,6 +164,8 @@ void c_AALeC_V3::reset_rotate(int n) {
 String c_AALeC_V3::get_environment_sensor() {
 	if(isBME280) {
 		return "BME280";
+	} else if(isBMP280) {
+		return "BMP280";
 	} else if(isBME680) {
 		return "BME680";
 	} else {
@@ -170,6 +176,8 @@ String c_AALeC_V3::get_environment_sensor() {
 float c_AALeC_V3::get_temp() {
 	if(isBME280) {
 		return bme280.readTemperature();
+	} else if(isBMP280) {
+		return bmp280.readTemperature();
 	} else if(isBME680) {
 		bme680_mess();
 		return bme680.temperature;
@@ -192,6 +200,8 @@ float c_AALeC_V3::get_humidity() {
 float c_AALeC_V3::get_pressure() {
 	if(isBME280) {
 		return (bme280.readPressure() / 100.0f);
+	} else if(isBMP280) {
+		return (bmp280.readPressure() / 100.0f);
 	} else if(isBME680) {
 		bme680_mess();
 		return (bme680.pressure / 100.0f);
