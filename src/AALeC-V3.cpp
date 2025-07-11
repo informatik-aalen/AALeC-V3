@@ -70,7 +70,7 @@ void c_AALeC_V3::init(int numLeds) {
 	display.setTextAlignment(TEXT_ALIGN_LEFT);
 
 	nunchuck1.begin();
-  	if(nunchuck1.type == Unknown) {
+  	if(nunchuck1.type == UnknownChuck) {
     	nunchuck1.type = NUNCHUCK;
   	}
 
